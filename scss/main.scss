@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+}
+
+$main-color: #1794f8;
+$second-color: #f7f7f7;
+$main-border-raduis: 8px;
+
+@mixin main_span() {
+  background-color: $main-color;
+  color: #fff;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+  width: 40px;
+  display: inline-block;
+  text-align: center;
+}
+
+.quiz-app {
+  background-color: $second-color;
+  padding: 15px;
+  width: 1000px;
+  max-width: 100%;
+  border: 1px solid $main-color;
+  border-radius: $main-border-raduis;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: $main-border-raduis;
+    font-size: 1.2rem;
+
+    span {
+      color: $main-color;
+      font-weight: bold;
+    }
+  }
+
+  .content {
+    padding: 15px;
+    background-color: #fff;
+    margin: 20px 0;
+    border-radius: $main-border-raduis;
+
+    .question {
+      background-color: $second-color;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: $main-border-raduis;
+      color: $main-color;
+
+      span {
+        @include main_span();
+        margin-right: 20px;
+      }
+    }
+
+    .answers {
+      background-color: $second-color;
+      padding: 10px;
+      border-radius: $main-border-raduis;
+
+      div {
+        padding: 10px 0;
+        margin: 8px 0;
+        font-size: 17px;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #ddd;
+        }
+
+        input:checked + label {
+          color: $main-color;
+        }
+
+        label {
+          cursor: pointer;
+          transition: 0.3s;
+        }
+      }
+    }
+
+    .finish {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 287px;
+      font-size: 35px;
+      color: #f00;
+      background-color: #f7f7f7;
+    }
+  }
+
+  .submit {
+    background-color: $main-color;
+    color: #fff;
+    padding: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: $main-border-raduis;
+    width: fit-content;
+    margin: 20px {
+      left: auto;
+    }
+    cursor: pointer;
+    user-select: none;
+    transition: 0.5s;
+
+    &:hover {
+      background-color: rgba($main-color, 0.8);
+    }
+  }
+
+  .indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: $main-border-raduis;
+    margin-bottom: 10px;
+
+    .bullets {
+      display: flex;
+      gap: 5px;
+
+      span {
+        width: 15px;
+        height: 15px;
+        background-color: #ddd;
+        border-radius: 50%;
+
+        &.active {
+          background-color: $main-color;
+        }
+      }
+    }
+  }
+
+  .result {
+    text-align: center;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: $main-border-raduis;
+    border: 1px solid $main-color;
+    font-size: 1.2rem;
+    display: none;
+
+    .status {
+      display: inline-block;
+      font-weight: bold;
+      color: $main-color;
+
+      &.bad {
+        color: #f00;
+      }
+    }
+
+    span {
+      @include main_span();
+
+      &.bad {
+        background-color: #f00;
+      }
+    }
+  }
+}
