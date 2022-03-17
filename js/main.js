@@ -4,7 +4,7 @@ let current_question_number = 0;
 let right_answers = 0;
 
 axios
-  .get("../json/main.json")
+  .get("/json/main.json")
   .then(({ data }) => {
     // show number of qyestions
     let q_count_span = document.querySelector(".quiz-app .info .count span");
