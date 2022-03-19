@@ -142,10 +142,9 @@
   gap: 5px;
 }
 .quiz-app .indicator .bullets span {
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 4px;
   background-color: #ddd;
-  border-radius: 50%;
 }
 .quiz-app .indicator .bullets span.active {
   background-color: #1794f8;

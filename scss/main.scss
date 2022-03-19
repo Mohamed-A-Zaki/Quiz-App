@@ -135,10 +135,9 @@ $main-border-raduis: 8px;
       gap: 5px;
 
       span {
-        width: 15px;
-        height: 15px;
+        width: 25px;
+        height: 4px;
         background-color: #ddd;
-        border-radius: 50%;
 
         &.active {
           background-color: $main-color;

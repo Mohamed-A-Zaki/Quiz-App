@@ -4,7 +4,7 @@ let current_question_number = 0;
 let right_answers = 0;
 
 axios
-  .get("/json/main.json")
+  .get("json/main.json")
   .then(({ data }) => {
     // show number of qyestions
     let q_count_span = document.querySelector(".quiz-app .info .count span");
@@ -39,10 +39,16 @@ axios
       if (current_question_number < data.length) createQuestion(data);
 
       // triger showResult function
-      showResult(data);
-
-      return data;
+      if (current_question_number >= data.length) showResult(data);
     };
+
+    return data;
+  })
+  .then((data) => {
+    // triger timing function
+    timing(data, 150);
+
+    return data;
   });
 
 function createQuestion(data) {
@@ -141,37 +147,68 @@ function activeBullets(data) {
 
 function showResult(data) {
   // remove question after finish
-  if (current_question_number >= data.length) {
-    content.innerHTML = "<div class='finish'>Quiz Finished</div>";
+  content.innerHTML = "<div class='finish'>Quiz Finished</div>";
 
-    // remove indicator
-    let indicator = document.querySelector(".quiz-app .indicator");
-    indicator.remove();
-    // rermove submit button
-    submit_btn.remove();
+  // remove indicator
+  let indicator = document.querySelector(".quiz-app .indicator");
+  indicator.remove();
+  // rermove submit button
+  submit_btn.remove();
 
-    // show result box
-    let result = document.querySelector(".quiz-app .result");
-    result.style.display = "block";
+  // show result box
+  let result = document.querySelector(".quiz-app .result");
+  result.style.display = "block";
 
-    // add scored points
-    let scored = document.querySelector(".quiz-app .result span.scored");
-    scored.innerHTML = right_answers;
+  // add scored points
+  let scored = document.querySelector(".quiz-app .result span.scored");
+  scored.innerHTML = right_answers;
 
-    // add totol number of questions
-    let total = document.querySelector(".quiz-app .result span.total");
-    total.innerHTML = data.length;
+  // add totol number of questions
+  let total = document.querySelector(".quiz-app .result span.total");
+  total.innerHTML = data.length;
 
-    // add status [ good or bad ]
-    let status = document.querySelector(".quiz-app .result .status");
-    if (right_answers < data.length / 2) {
-      status.innerHTML = "Bad";
-      status.classList.add("bad");
-      scored.classList.add("bad");
-    } else if (right_answers < data.length) {
-      status.innerHTML = "Good";
-    } else {
-      status.innerHTML = "Perfect";
-    }
+  // add status [ good or bad ]
+  let status = document.querySelector(".quiz-app .result .status");
+  if (right_answers < data.length / 2) {
+    status.innerHTML = "Bad";
+    status.classList.add("bad");
+    scored.classList.add("bad");
+  } else if (right_answers < data.length) {
+    status.innerHTML = "Good";
+  } else {
+    status.innerHTML = "Perfect";
   }
+}
+
+function timing(data, seconds_number) {
+  // set minutes
+  let minutes = document.querySelector(".minutes");
+  minutes.innerHTML = Math.trunc(seconds_number / 60);
+  // set secondes
+  let seconds = document.querySelector(".seconds");
+  seconds.innerHTML = seconds_number % 60;
+
+  let time = setInterval(() => {
+    // check first if seconds == 0 before decrease its value
+    if (seconds.innerHTML == 0) {
+      seconds.innerHTML = "60";
+      minutes.innerHTML--;
+    }
+
+    // decrease seconds
+    seconds.innerHTML--;
+
+    if (minutes.innerHTML == 0 && seconds.innerHTML == 0) {
+      // clear interval
+      clearInterval(time);
+      // triger showResult function
+      showResult(data);
+    }
+
+    seconds.innerHTML =
+      seconds.innerHTML < 10 ? `0${+seconds.innerHTML}` : seconds.innerHTML;
+
+    minutes.innerHTML =
+      minutes.innerHTML < 10 ? `0${+minutes.innerHTML}` : minutes.innerHTML;
+  }, 1000);
 }
