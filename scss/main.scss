@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 $main-color: #1794f8;
 $second-color: #f7f7f7;
 $main-border-raduis: 8px;
@@ -17,17 +13,39 @@ $main-border-raduis: 8px;
   text-align: center;
 }
 
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: #eee;
+}
+
 .quiz-app {
   background-color: $second-color;
   padding: 15px;
-  width: 1000px;
-  max-width: 100%;
+  width: 90vw;
+  min-height: 90vh;
   border: 1px solid $main-color;
   border-radius: $main-border-raduis;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    width: 90%;
+  }
+
+  .heading {
+    margin: auto;
+    width: fit-content;
+    margin-bottom: 30px;
+    color: $main-color;
+    font-size: 40px;
+  }
 
   .info {
     display: flex;
@@ -135,7 +153,7 @@ $main-border-raduis: 8px;
       gap: 5px;
 
       span {
-        width: 25px;
+        width: 20px;
         height: 4px;
         background-color: #ddd;
 
